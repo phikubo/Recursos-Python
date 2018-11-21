@@ -47,7 +47,7 @@ def traducir(sec, tabla=tabla):
 			proteina += tabla[triada]
 		return proteina
 	else:
-		print("No valido")
+		print("No valido", len(sec))
 		return proteina
 
 
@@ -66,5 +66,10 @@ print("--------------------------")
 #No se incluye por defecto el "_", luego:
 test3=traducir(archivo_adn[20:935])
 print(test3)
+print("--------------------------")
 #comprobamos que las cadena sea igual a la traduccion que ofrece la pagina web:
 print(archivo_proteina==test3) #Retorna True, luego esta correcto.
+print("--------------------------")
+#o también podemos cortar el ultimo caracter como en test2, pero del resultado final
+test2=traducir(archivo_adn[20:938])[:-1] 
+print(archivo_proteina==test2)
