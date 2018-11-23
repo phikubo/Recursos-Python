@@ -35,10 +35,14 @@ def contar_palabras_usando_modulo(texto):
 		texto=texto.replace(salto,"")
 	palabras_cuentas=Counter(texto.split(" "))
 	return palabras_cuentas
-		
-print(contar_palabras(texto))
-print(contar_palabras_usando_modulo(texto))
 
-#comparamos
-print("La comparación es: ")
-print(contar_palabras(texto) == contar_palabras_usando_modulo(texto))
+if __name__ == "__main__":
+
+	print(contar_palabras(texto))
+	print(contar_palabras_usando_modulo(texto))
+
+	#comparamos
+	print("La comparación es: ")
+	print(contar_palabras(texto) == contar_palabras_usando_modulo(texto))
+else:
+	print("------->Modulo diccionario importado")
