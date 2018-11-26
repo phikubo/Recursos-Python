@@ -21,16 +21,17 @@ def contar_votos(votos):
 		if cuenta == mayor_obtuvo:
 			mayores.append(voto)
 			print(mayores, "obtuvo la mayor cantidad de votos")
-	return votos_cuenta
+	return votos_cuenta, mayores, random.choice(mayores)
 	
 
 if __name__=="__main__":
 	votos=[1,2,3,4,5,1,2,3,1,2,6,5,7,12,15,1,1,1,1,1,7,7,7,7,7,7,7]
-	test=contar_votos(votos)
+	test,test2,test3=contar_votos(votos)
 	print(test)
 	print("maximo ",max(test))
 	print("maximo de numeros",max(test.keys()))
 	print("maximo de votos",max(test.values()))
+	print("mayor ", test2, "eleccion de uno: ",test3)
 else:
 	print("modulo importado","Caso 3: calculadora")
 
