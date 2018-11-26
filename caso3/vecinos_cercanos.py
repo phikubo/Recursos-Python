@@ -7,6 +7,7 @@ if __name__=="__main__":
 	#si fuera de mas dimesiones en filas:
 	#array([ [a0,b0, c0, ..., i0], [a1,b1,c1,...,i1] , ... , [an,bn,cn,...,in]   ]) 
 	puntos=np.array([ [1,1],[1,2],[1,3],[2,1],[2,2],[2,3],[3,1],[3,2],[3,3] ])
+	print(puntos.shape[0], len(puntos)) #shape[dimension], 0: columna, 1 para fila, equivalente a len(). Shape lo hace tambien en filas, len no.
 	print(puntos)
 	print("longitud array: ",len(puntos))
 	print("Primera posicion: ", puntos[0], "segunda posicion: ", puntos[1], "En la segunda posicion, adentro el segundo valor: ",puntos[1][1])
@@ -15,9 +16,12 @@ if __name__=="__main__":
 	#para entenderlo seria: : -> logitud del vector; :,1->la columa, entonces
 	#array[<Para todo el vector>(:)<,> <la k columna>(1,k=1)]: array[: , k=1]
 	
-	p= np.array([2.5,2])
-	#plt.plot(puntos[:,0], puntos[:,1], "ro")
-	#plt.show()
+	punto_arbitrario= np.array([2.5,2])
+	plt.plot(puntos[:,0], puntos[:,1], "ro")
+	plt.plot(punto_arbitrario[0],punto_arbitrario[1], "bo")
+	plt.show()
+
+	
 else:
 	print("modulo importado","Caso 3: KNN")
 
