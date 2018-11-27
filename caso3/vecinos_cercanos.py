@@ -38,8 +38,10 @@ if __name__=="__main__":
 	
 	
 	fig, ax = plt.subplots(figsize=(6, 6))
-	circle = patches.Circle((punto_arbitrario[0],punto_arbitrario[1]), radius=minima_distancia, linestyle="-")
+	circle = patches.Circle((punto_arbitrario[0],punto_arbitrario[1]), radius=minima_distancia)
+	circle2 = patches.Circle((2,2), radius=minima_distancia, facecolor="none", edgecolor="g")
 	ax.add_patch(circle)
+	ax.add_patch(circle2)
 	
 	#alternativa para el circulo, de forma manual:
 	#En este caso, radio=0.5; 2.5 y 2 son lo que hay que sumar para ubicar el circulo al centro del punto_arbitrario.
