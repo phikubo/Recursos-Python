@@ -3,6 +3,15 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from distanciaDosPuntos import distancia
 
+def encontrar_vecino(origen, vecinos, k=3):
+	"""Encuentra los k vecinos mas cercanos"""
+	distancias = np.zeros(puntos.shape[0])
+	for i in range(len(distancias)):
+		distancias[i]=distancia(origen, vecinos[i])
+		print("puntos: ",vecinos[i] , "en ", i, "distancias: ", distancias[i])
+	#ind= np.argsort(distancias)
+	return distancias #return ind[:k]
+	
 if __name__=="__main__":
 	#vector columna: array([ [a0,b0], [a1,b1], [a2,b2] , ..., [an,bn]   ])
 	#si fuera de mas dimesiones en filas:
@@ -12,10 +21,8 @@ if __name__=="__main__":
 	print(puntos.shape[0], len(puntos)) #shape[dimension], 0: columna, 1 para fila, equivalente a len(). Shape lo hace tambien en filas, len no.
 	distancias = np.zeros(puntos.shape[0])
 	
-	for i in range(len(distancias)):
-		distancias[i]=distancia(punto_arbitrario, puntos[i])
-		print("puntos: ",puntos[i] , "en ", i, "distancias: ", distancias[i])
-	#argsort, regresa el index de las distancias mas pequenas, de mayor a menor en valor.
+	distancias=encontrar_vecino(punto_arbitrario, puntos)
+	#argsort, regresa el index de las distancias de menor a mayor en valor.
 	sorteadas=np.argsort(distancias)
 	minima_distancia=min(distancias)
 	print("minima distancia: ", minima_distancia)
@@ -36,7 +43,7 @@ if __name__=="__main__":
 	#para entenderlo seria: : -> logitud del vector; :,1->la columa, entonces
 	#array[<Para todo el vector>(:)<,> <la k columna>(1,k=1)]: array[: , k=1]
 	
-	
+	#circulo de tipo patch, clase por defecto de matplotlib para hacer poligonos
 	fig, ax = plt.subplots(figsize=(6, 6))
 	circle = patches.Circle((punto_arbitrario[0],punto_arbitrario[1]), radius=minima_distancia)
 	circle2 = patches.Circle((2,2), radius=minima_distancia, facecolor="none", edgecolor="g")
@@ -49,6 +56,12 @@ if __name__=="__main__":
 	#>>plot(radio*seno(theta) +desplazamiento_en_x, radio*coseno(theta) +desplazamiento_en_y, "color")
 	theta = np.linspace(-np.pi, np.pi, 200)
 	plt.plot(0.5*(np.sin(theta))+2.5, 0.5*(np.cos(theta))+2, "k-")
+	
+	
+	#LATER ON, Search for the colorbar, how to implement it.
+	#cbar =fig.colorbar(ax)
+	#cbar.solids.set_edgecolor("face")
+	#draw()
 	
 	plt.plot(puntos[:,0], puntos[:,1], "ro")
 	plt.plot(punto_arbitrario[0],punto_arbitrario[1], "bo")
