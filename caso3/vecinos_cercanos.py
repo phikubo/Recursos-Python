@@ -3,15 +3,29 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from distanciaDosPuntos import distancia
 
-def encontrar_vecino(origen, vecinos, k=3):
-	"""Encuentra los k vecinos mas cercanos"""
+
+def encontrar_distancias(origen, vecinos):
+	"""Retorna las distancias"""
 	distancias = np.zeros(puntos.shape[0])
 	for i in range(len(distancias)):
 		distancias[i]=distancia(origen, vecinos[i])
 		print("puntos: ",vecinos[i] , "en ", i, "distancias: ", distancias[i])
-	#ind= np.argsort(distancias)
-	return distancias #return ind[:k]
+	return distancias
+
+def encontrar_vecino(origen, vecinos, k=3):
+	"""Encuentra los primeros k vecinos mas cercanos usando la funcion sorted"""
+	distancias = np.zeros(puntos.shape[0])
+	for i in range(len(distancias)):
+		distancias[i]=distancia(origen, vecinos[i])
+		print("puntos: ",vecinos[i] , "en ", i, "distancias: ", distancias[i])
+	ind= np.argsort(distancias)
+	return ind[:k]
+
+def calcular_knn(origen, vecinos):
+	"""Calcula segun la distancia si pertenece a una clase u otra"""
+	pass
 	
+		
 if __name__=="__main__":
 	#vector columna: array([ [a0,b0], [a1,b1], [a2,b2] , ..., [an,bn]   ])
 	#si fuera de mas dimesiones en filas:
@@ -21,7 +35,8 @@ if __name__=="__main__":
 	print(puntos.shape[0], len(puntos)) #shape[dimension], 0: columna, 1 para fila, equivalente a len(). Shape lo hace tambien en filas, len no.
 	distancias = np.zeros(puntos.shape[0])
 	
-	distancias=encontrar_vecino(punto_arbitrario, puntos)
+	distancias=encontrar_distancias(punto_arbitrario, puntos)
+	indx_k_vecinos_cercanos = encontrar_vecino(punto_arbitrario, puntos)
 	#argsort, regresa el index de las distancias de menor a mayor en valor.
 	sorteadas=np.argsort(distancias)
 	minima_distancia=min(distancias)
@@ -42,6 +57,8 @@ if __name__=="__main__":
 	print(puntos[:,1]) #vector columna posicion k: array[:,k]
 	#para entenderlo seria: : -> logitud del vector; :,1->la columa, entonces
 	#array[<Para todo el vector>(:)<,> <la k columna>(1,k=1)]: array[: , k=1]
+	
+	print("indices ", indx_k_vecinos_cercanos, "puntos : ",puntos[indx_k_vecinos_cercanos])
 	
 	#circulo de tipo patch, clase por defecto de matplotlib para hacer poligonos
 	fig, ax = plt.subplots(figsize=(6, 6))
