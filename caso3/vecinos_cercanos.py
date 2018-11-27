@@ -40,6 +40,14 @@ if __name__=="__main__":
 	fig, ax = plt.subplots(figsize=(6, 6))
 	circle = patches.Circle((punto_arbitrario[0],punto_arbitrario[1]), radius=minima_distancia, linestyle="-")
 	ax.add_patch(circle)
+	
+	#alternativa para el circulo, de forma manual:
+	#En este caso, radio=0.5; 2.5 y 2 son lo que hay que sumar para ubicar el circulo al centro del punto_arbitrario.
+	#una formula general seria:
+	#>>plot(radio*seno(theta) +desplazamiento_en_x, radio*coseno(theta) +desplazamiento_en_y, "color")
+	theta = np.linspace(-np.pi, np.pi, 200)
+	plt.plot(0.5*(np.sin(theta))+2.5, 0.5*(np.cos(theta))+2, "k-")
+	
 	plt.plot(puntos[:,0], puntos[:,1], "ro")
 	plt.plot(punto_arbitrario[0],punto_arbitrario[1], "bo")
 	plt.grid(True)
