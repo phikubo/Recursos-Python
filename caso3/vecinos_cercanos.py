@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 if __name__=="__main__":
 	#vector columna: array([ [a0,b0], [a1,b1], [a2,b2] , ..., [an,bn]   ])
 	#si fuera de mas dimesiones en filas:
-	#array([ [a0,b0, c0, ..., i0], [a1,b1,c1,...,i1] , ... , [an,bn,cn,...,in]   ]) 
+	#array([ [a0,b0, c0, ..., z0], [a1,b1,c1,...,z1] , ... , [an,bn,cn,...,zn]   ]) 
 	puntos=np.array([ [1,1],[1,2],[1,3],[2,1],[2,2],[2,3],[3,1],[3,2],[3,3] ])
 	print(puntos.shape[0], len(puntos)) #shape[dimension], 0: columna, 1 para fila, equivalente a len(). Shape lo hace tambien en filas, len no.
 	print(puntos)
