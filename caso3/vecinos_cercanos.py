@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from distanciaDosPuntos import distancia
-
+from calculadora import contar_votos_scipy
 
 def encontrar_distancias(origen, vecinos):
 	"""Retorna las distancias"""
@@ -21,9 +21,11 @@ def encontrar_vecino(origen, vecinos, k=3):
 	ind= np.argsort(distancias)
 	return ind[:k]
 
-def calcular_knn(origen, vecinos):
-	"""Calcula segun la distancia si pertenece a una clase u otra"""
-	pass
+def calcular_knn(origen, vecinos, salida, k=5):
+	"""Calcula segun la distancia si pertenece a una clase u otra, de forma binaria"""
+	indices_cercanos=encontrar_vecino(origen, vecinos, k)
+	
+	return contar_votos_scipy(salida[indices_cercanos])
 	
 		
 if __name__=="__main__":
@@ -44,13 +46,6 @@ if __name__=="__main__":
 	minima_distancia=min(distancias)
 	print("minima distancia: ", minima_distancia)
 	print("distancias sorted: ", sorteadas)
-	plt.figure()
-	plt.grid(True)
-	plt.hist(distancias)
-	plt.hist(distancias,density=True, cumulative=True, histtype="step")
-	plt.figure()
-	plt.grid(True)
-	plt.plot(distancias, "r-")
 	print(puntos)
 	print("longitud array: ",len(puntos))
 	print("Primera posicion: ", puntos[0], "segunda posicion: ", puntos[1])
@@ -62,7 +57,34 @@ if __name__=="__main__":
 	
 	print("indices ", indx_k_vecinos_cercanos, "puntos : ",puntos[indx_k_vecinos_cercanos])
 	
+	
+	#clase binaria sirve para identificar dos clases
+	clase_binaria=np.array([0,0,0,0,0,-1,-1,-1,-1])
+	
+	#como se clasifica segun clase binaria, el resultado es 0 o 1.
+	try:
+		print("Clase binaria test")
+		punto_arbitrario_de_prueba=np.array([1.0, 2.7])
+		resultado_cercanos, veces = calcular_knn(punto_arbitrario_de_prueba, puntos, clase_binaria)
+		print("gano la clase: ", resultado_cercanos, "con ", veces, "votos")
+		print("Fin")
+	except Exception as e:
+		print(e)
+	
+	#------------------GRAFICAS
+	
+	#histograma y comulativa
+	plt.figure()
+	plt.grid(True)
+	plt.hist(distancias)
+	plt.hist(distancias,density=True, cumulative=True, histtype="step")
+	plt.figure()
+	plt.grid(True)
+	plt.plot(distancias, "r-")
+		
 	#circulo de tipo patch, clase por defecto de matplotlib para hacer poligonos
+	#circulo es el radio de alcance de el vecino mas cercano
+	#circulo2 es un circulo de prueba sin relleno.
 	fig, ax = plt.subplots(subplot_kw={'aspect': 'equal'})
 	circle = patches.Circle((punto_arbitrario[0],punto_arbitrario[1]), radius=minima_distancia)
 	circle2 = patches.Circle((2,2), radius=minima_distancia, facecolor="none", edgecolor="g")
@@ -86,8 +108,10 @@ if __name__=="__main__":
 	plt.plot(punto_arbitrario[0],punto_arbitrario[1], "bo")
 	plt.grid(True)
 	plt.show()
-
 	
+	#hexagono
+	#1, 6, 12, 18, 24, ++6
+
 else:
 	print("modulo importado","Caso 3: KNN")
 
