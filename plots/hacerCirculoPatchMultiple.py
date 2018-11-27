@@ -1,3 +1,5 @@
+#origen carpeta plots
+
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import numpy as np
@@ -13,10 +15,11 @@ def crear_circulos(puntos):
 def agregar_al_patch(ax, circulos):
 	for i in circulos:
 		ax.add_patch(i)
+		i.set_facecolor(np.random.rand(3))
 	
 
 def main():
-	fig, ax = plt.subplots(figsize=(8, 8))
+	fig, ax = plt.subplots(subplot_kw={'aspect': 'equal'})
 	ax.set_xlim(0, 10)
 	ax.set_ylim(0, 10)
 	k=4

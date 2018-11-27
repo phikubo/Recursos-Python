@@ -32,7 +32,9 @@ if __name__=="__main__":
 	#array([ [a0,b0, c0, ..., z0], [a1,b1,c1,...,z1] , ... , [an,bn,cn,...,zn]   ]) 
 	puntos=np.array([ [1,1],[1,2],[1,3],[2,1],[2,2],[2,3],[3,1],[3,2],[3,3] ])
 	punto_arbitrario= np.array([2.5,2])
-	print(puntos.shape[0], len(puntos)) #shape[dimension], 0: columna, 1 para fila, equivalente a len(). Shape lo hace tambien en filas, len no.
+	print(puntos.shape[0], len(puntos)) #shape[dimension], 0: columna, 1 para fila, equivalente a len(). 
+	#Shape lo hace tambien en filas, len no.
+	
 	distancias = np.zeros(puntos.shape[0])
 	
 	distancias=encontrar_distancias(punto_arbitrario, puntos)
@@ -61,7 +63,7 @@ if __name__=="__main__":
 	print("indices ", indx_k_vecinos_cercanos, "puntos : ",puntos[indx_k_vecinos_cercanos])
 	
 	#circulo de tipo patch, clase por defecto de matplotlib para hacer poligonos
-	fig, ax = plt.subplots(figsize=(6, 6))
+	fig, ax = plt.subplots(subplot_kw={'aspect': 'equal'})
 	circle = patches.Circle((punto_arbitrario[0],punto_arbitrario[1]), radius=minima_distancia)
 	circle2 = patches.Circle((2,2), radius=minima_distancia, facecolor="none", edgecolor="g")
 	ax.add_patch(circle)
