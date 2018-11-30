@@ -3,7 +3,9 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from distanciaDosPuntos import distancia
 from calculadora import contar_votos_scipy
+import scipy.stats as ss
 
+#no se implementa formalmente
 def encontrar_distancias(origen, vecinos):
 	"""Retorna las distancias"""
 	distancias = np.zeros(puntos.shape[0])
@@ -26,8 +28,14 @@ def calcular_knn(origen, vecinos, salida, k=5):
 	indices_cercanos=encontrar_vecino(origen, vecinos, k)
 	
 	return contar_votos_scipy(salida[indices_cercanos])
-	
-		
+
+def generar_datos(m=30):
+	"""Crea dos conjuntos de datos usando distribucion bivariate normal """
+	puntos_sinteticos_clase_cero = ss.norm(0,1).rvs((m,2))
+	puntos_sinteticos_clase_uno = ss.norm(1,1).rvs((m,2))
+	coordenadas_puntos=np.concatenate( (puntos_sinteticos_clase_cero,puntos_sinteticos_clase_uno), axis=0 )
+	clase_binaria_m = np.concatenate( (np.repeat(0,m),np.repeat(1,m) ) ) 
+	return (coordenadas_puntos, clase_binaria_m) #puntos, salida
 if __name__=="__main__":
 	#vector columna: array([ [a0,b0], [a1,b1], [a2,b2] , ..., [an,bn]   ])
 	#si fuera de mas dimesiones en filas:
@@ -62,15 +70,40 @@ if __name__=="__main__":
 	clase_binaria=np.array([0,0,0,0,0,-1,-1,-1,-1])
 	
 	#como se clasifica segun clase binaria, el resultado es 0 o 1.
-	try:
-		print("Clase binaria test")
-		punto_arbitrario_de_prueba=np.array([1.0, 2.7])
-		resultado_cercanos, veces = calcular_knn(punto_arbitrario_de_prueba, puntos, clase_binaria)
-		print("gano la clase: ", resultado_cercanos, "con ", veces, "votos")
-		print("Fin")
-	except Exception as e:
-		print(e)
+	print("Clase binaria test")
+	punto_arbitrario_de_prueba=np.array([1.0, 2.7])
+	resultado_cercanos, veces = calcular_knn(punto_arbitrario_de_prueba, puntos, clase_binaria)
+	print("gano la clase: ", resultado_cercanos, "con ", veces, "votos")
 	
+	#Generar Synthetic Data en reemplazo de Clase_binaria:
+	#norm es una variable aleatoria normal y continua, definida como:
+	#>> modulo.norm(params).rvs( (filas, columas) )
+	puntos_sinteticos_clase_cero = ss.norm(0,1).rvs((5,2))
+	puntos_sinteticos_clase_uno = ss.norm(1,1).rvs((5,2))
+	
+	#unimos las dos clases en un solo vector
+	#axis los apila en 0 en la misma columna ( : ) y 1 los separa en diferentes columnas ( . .)
+	# (:) y (..) indican la forma de apilar, siendo los puntos los vectores
+	datos_sinteticos=np.concatenate( (puntos_sinteticos_clase_cero,puntos_sinteticos_clase_uno), axis=0 )
+	print("1: ",puntos_sinteticos_clase_cero )
+	print("2 ", puntos_sinteticos_clase_uno)
+	print("3",datos_sinteticos)
+	#la funcion genera tantos puntos a plotear como salidas. 
+	
+	#numpy.repeat( (numero a repetir, veces a repetir) )
+	l=3
+	clase_binaria_k = np.concatenate( (np.repeat(0,l),np.repeat(1,l) ) ) 
+	print(clase_binaria_k)
+	
+	#Testeo
+	print("prueba de funcion generar_datos o mas bien, generar conjunto de puntos")
+	m=10
+	(puntos_aleatorios, salida)= generar_datos(m)
+	
+	
+	
+	
+	print("Fin")
 	#------------------GRAFICAS
 	
 	#histograma y comulativa
@@ -81,6 +114,15 @@ if __name__=="__main__":
 	plt.figure()
 	plt.grid(True)
 	plt.plot(distancias, "r-")
+	
+	#grafia de puntos aleatorios:
+	plt.figure()
+	plt.grid(True)
+	#>>puntos[0:n, 0] y puntos[0:n,1], indica que se recorre el vector hasta n en la columna 0 y luego la 1
+	#Se recorre hasta n por que hasta ahi va el primer set de puntos, luego, puntos[:n, 0] y puntos[:n,1]
+	#indica que se recorre hasta el final en la columna 0 y 1, dado que el vector tiene logitud 2n.
+	plt.plot(puntos_aleatorios[:m,0],puntos_aleatorios[:m,1], "ro")
+	plt.plot(puntos_aleatorios[m:,0],puntos_aleatorios[m:,1], "bo")
 		
 	#circulo de tipo patch, clase por defecto de matplotlib para hacer poligonos
 	#circulo es el radio de alcance de el vecino mas cercano

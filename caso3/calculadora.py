@@ -1,5 +1,5 @@
 #print("Caso 3: calculadora")
-
+import scipy.stats as ss
 #modificando caso2/diccionario_de_palabras.py:
 import random
 def contar_votos(votos):
@@ -23,7 +23,7 @@ def contar_votos(votos):
 			print(mayores, "obtuvo la mayor cantidad de votos")
 	return votos_cuenta, mayores, random.choice(mayores)
 	
-import scipy.stats as ss
+#import scipy.stats as ss
 def contar_votos_scipy(votos):
 	"""
 	Cuenta el numero de veces que esta el valor de un array. Funciona cuando hay empates (regresa ambos)
