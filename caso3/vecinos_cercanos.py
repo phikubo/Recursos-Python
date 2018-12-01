@@ -23,6 +23,7 @@ def encontrar_vecino(origen, vecinos, k=3):
 	ind= np.argsort(distancias)
 	return ind[:k]
 
+	#origen:punto de origen, vecinos: puntos vecinos, salida: clase_binaria
 def calcular_knn(origen, vecinos, salida, k=5):
 	"""Calcula segun la distancia si pertenece a una clase u otra, de forma binaria"""
 	indices_cercanos=encontrar_vecino(origen, vecinos, k)
