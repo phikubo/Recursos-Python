@@ -16,7 +16,7 @@ def encontrar_distancias(origen, vecinos):
 
 def encontrar_vecino(origen, vecinos, k=3):
 	"""Encuentra los primeros k vecinos mas cercanos usando la funcion sorted"""
-	distancias = np.zeros(puntos.shape[0])
+	distancias = np.zeros(vecinos.shape[0])
 	for i in range(len(distancias)):
 		distancias[i]=distancia(origen, vecinos[i])
 		print("puntos: ",vecinos[i] , "en ", i, "distancias: ", distancias[i])
@@ -27,7 +27,8 @@ def encontrar_vecino(origen, vecinos, k=3):
 def calcular_knn(origen, vecinos, salida, k=5):
 	"""Calcula segun la distancia si pertenece a una clase u otra, de forma binaria"""
 	indices_cercanos=encontrar_vecino(origen, vecinos, k)
-	
+	resultado=contar_votos_scipy(salida[indices_cercanos])
+	print(resultado)
 	return contar_votos_scipy(salida[indices_cercanos])
 
 def generar_datos(m=30):

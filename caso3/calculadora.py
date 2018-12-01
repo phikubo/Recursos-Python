@@ -29,7 +29,8 @@ def contar_votos_scipy(votos):
 	Cuenta el numero de veces que esta el valor de un array. Funciona cuando hay empates (regresa ambos)
 	"""
 	moda, cuenta= ss.mstats.mode(votos)
-	return moda,cuenta
+	#return moda,cuenta
+	return moda
 if __name__=="__main__":
 	votos=[1,2,3,4,5,1,2,3,1,2,6,5,7,12,15,1,1,1,1,1,7,7,7,7,7,7,7]
 	test,test2,test3=contar_votos(votos)
