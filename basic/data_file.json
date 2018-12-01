@@ -1,0 +1,1 @@
+{"images_processed": 1, "custom_classes": 5, "images": [{"classifiers": [{"name": "Default Custom Model", "classifier_id": "DefaultCustomModel_152343211", "classes": [{"class": "ford", "score": 0.817}]}], "image": "./58.jpg"}]}
