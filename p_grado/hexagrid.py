@@ -4,6 +4,7 @@ import numpy as np
 import math
 import random
 import time
+import calculadora
 #http://magomar.github.io/deludobellico//programming/java/hexagonal-maps/2013/10/10/mapas-hexagonales-2.html
 #https://joseguerreroa.wordpress.com/2016/11/17/como-producir-rejillas-grid-hexagonales-mediante-pyqgis/
 #https://gamedevelopment.tutsplus.com/es/tutorials/introduction-to-axial-coordinates-for-hexagonal-tile-based-games--cms-28820
@@ -18,6 +19,7 @@ Por el momento el script solo permite 7 celdas,
 
 En la próxima entrega se hara sectorización (por 3) y se permitirá varios niveles (vueltas respecto al origen) en la grilla.''' 
 
+#NOTA PERSONAL: Si colocar time.sleep(time) ubicar un print() que indique su existencia.
 
 def calcular_radio_externo(radio):
 	#print(math.sin(30), math.radians(30), math.degrees(30))
@@ -122,7 +124,7 @@ def crear_coordenadas_grilla_horizontal(coord, coef, nivel):
 	
 	for i in range(2*nivel):
 		coordenadas.append(coord[i])
-		
+	'''	
 	for i in range(nivel):
 		coordenadas_pares.append(coord[i])
 	
@@ -131,11 +133,11 @@ def crear_coordenadas_grilla_horizontal(coord, coef, nivel):
 	print("coordenadas pares ",coordenadas_pares)
 	print("coordenadas impares ",coordenadas_impares)
 	print("coordenadas por nivel ",coordenadas )
-	
+	'''
 	for c in coordenadas:
 		resultado=-1*2. * np.sin(np.radians(60)) * (coef*c[1] - coef*c[2]) /3.
 		vc_aux.append(resultado)
-	vcoord=2*vc_aux
+	vcoord=calculadora.calc_rango(2*nivel)*vc_aux
 	vcoord=vcoord[0:n]
 	#print(len(vcoord),  n  )
 	#print("por dos", vcoord[0:n])
@@ -168,7 +170,6 @@ def plotear_grid(coef,radio, coord, nivel):
 	
 	
 	print(len(hcoord), len(vcoord))
-	time.sleep(10)
 	
 	for x, y, c, l in zip(hcoord, vcoord, colors, labels):
 		color = c[0].lower()  # matplotlib understands lower case words for colours
@@ -178,7 +179,7 @@ def plotear_grid(coef,radio, coord, nivel):
                          #cambiar radius=2. / 3. , cuando se usa coord_0
 		ax.add_patch(hex)
     	# Also add a text label
-		ax.text(x, y+0.2, l[0], ha='center', va='center', size=20)
+		ax.text(x, y+0.2, l[0], ha='center', va='center', size=6)
 	# Also add scatter points in hexagon centres
 	ax.scatter(hcoord, vcoord, c=[c[0].lower() for c in colors], alpha=0.5)
 	plt.grid(True)
@@ -197,7 +198,12 @@ if __name__ =="__main__":
 	generar_lista(nivel, rae, bd_coordenadas)
 	print(bd_coordenadas)
 	plotear_grid(coef, radio, bd_coordenadas, nivel)
-	 
+	
+	'''1- Actualmente el algoritmo genera grillas simetricas. La idea es crear grillas n*n-1, nE{impares}
+	
+	'''
+	'''2-La sectorización funciona para un nivel multiplo de 3. Funciona quiere decir que para los numeros
+	impares, quedan celdas sin usar, por lo que no es eficiente producir celdas que no se usan'''
 	
 	
 	
