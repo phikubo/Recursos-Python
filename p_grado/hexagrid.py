@@ -25,7 +25,8 @@ def calcular_radio_externo(radio):
 	#print(math.sin(30), math.radians(30), math.degrees(30))
 	lado=radio*2*math.sin(math.radians(30))
 	#print("lado", lado, radio)
-	radio_externo=radio+lado/2
+	#radio_externo=radio+lado/2 #para una grilla horizontal
+	radio_externo=radio+lado/2+lado/2 +lado/2 +lado/2 #para una grilla vertical
 	return radio_externo
 	
 
@@ -113,7 +114,8 @@ def crear_coordenadas_grilla_horizontal(coord, coef, nivel):
 	'''Calcula las coordenadas horizontales y verticales. En el caso de las coordenadas verticales se usa las primeras dos
 	elementos de la lista para expandir la grilla'''
 	#proceo 1 completado
-	hcoord = [coef*c[0] for c in coord]
+	#hcoord = [coef*c[0] for c in coord] #para grilla horizontal
+	hcoord = [1/3*coef*c[0] for c in coord]
 	vcoord =[]
 	vc_aux=[]
 	coordenadas_pares=[]
@@ -135,7 +137,7 @@ def crear_coordenadas_grilla_horizontal(coord, coef, nivel):
 	print("coordenadas por nivel ",coordenadas )
 	'''
 	for c in coordenadas:
-		resultado=-1*2. * np.sin(np.radians(60)) * (coef*c[1] - coef*c[2]) /3.
+		resultado=-1*2. * np.sin(np.radians(120)) * (coef*c[1] - coef*c[2]) /3.
 		vc_aux.append(resultado)
 	vcoord=calculadora.calc_rango(2*nivel)*vc_aux
 	vcoord=vcoord[0:n]
@@ -167,14 +169,14 @@ def plotear_grid(coef,radio, coord, nivel):
 	
 	fig, ax = plt.subplots(1)
 	ax.set_aspect('equal')
-	
+	vertical_coef=1.154
 	
 	print(len(hcoord), len(vcoord))
 	
 	for x, y, c, l in zip(hcoord, vcoord, colors, labels):
 		color = c[0].lower()  # matplotlib understands lower case words for colours
-		hex = RegularPolygon((x, y), numVertices=6, radius=radio, #0.67
-                         orientation=np.radians(30), #con 60 grados funciona perfecto, pero las coordenadas cambian. Antes 30
+		hex = RegularPolygon((x, y), numVertices=6, radius=vertical_coef*radio, #0.67
+                         orientation=np.radians(60), #con 60 grados funciona perfecto, pero las coordenadas cambian. Antes 30
                          facecolor=color, alpha=0.2, edgecolor='k')
                          #cambiar radius=2. / 3. , cuando se usa coord_0
 		ax.add_patch(hex)
@@ -188,8 +190,8 @@ def plotear_grid(coef,radio, coord, nivel):
 
 if __name__ =="__main__":
 	print("main")
-	radio=5
-	nivel=5
+	radio=10
+	nivel=6
 	bd_coordenadas=[] 
 	#calcular_radio_externo(radio)
 	rae=calcular_radio_externo(radio)
