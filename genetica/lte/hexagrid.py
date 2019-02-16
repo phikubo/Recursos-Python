@@ -14,51 +14,42 @@ import calculadora
 
 '''La modificación consiste en que se puede escalar los hexagonos al radio que uno fije, en ese sentido
 la grilla de hexagono mantiene su forma.
-
-Por el momento el script solo permite 7 celdas, 
+ 
+El script permite n celdas, 
 
 En la próxima entrega se hara sectorización (por 3) y se permitirá varios niveles (vueltas respecto al origen) en la grilla.''' 
 
 #NOTA PERSONAL: Si colocar time.sleep(time) ubicar un print() que indique su existencia.
 
 def calcular_radio_externo(radio):
-	#print(math.sin(30), math.radians(30), math.degrees(30))
+	'''calcula la distancia entre el centro de una celda al centro de otra celda, usand el radio de una celda.'''
 	lado=radio*2*math.sin(math.radians(30))
-	#print("lado", lado, radio)
 	radio_externo=radio+lado/2 #para una grilla horizontal
 	#radio_externo=radio+lado/2+lado/2 +lado/2 +lado/2 #para una grilla vertical
 	return radio_externo
 	
-
- 
-
 def guardar_lista(lista,bd_coordenadas):
+	'''Guarda la lista creada y adiciona la coordenada z'''
 	#print("coordenadas: ",lista, "y ",lista[0],",", lista[1])
 	#x+y+z=0 en coordenadas axiales, despejando z=-x-y entonces lo genero
 	#en este caso x, y equivalen respectivamente a lista[0] y lista[1]
 	coordenada_z = -lista[0]-lista[1]
 	lista.append(coordenada_z)
-	##print("coordenadas axial final: ",lista)
 	bd_coordenadas.append(lista)
-	#print(bd_coordenadas)
 	return bd_coordenadas
 	 
- 
 def generar_lista(nivel,rae, bd_coordenadas):
-	#funcion que no se implementa por que es inutil
+	'''Crea una lista de coordenadas'''
 	for j in range(nivel):
 		for m in range(nivel):
-			
 			l=[j,m]
-			#print(l, type(l))
 			guardar_lista(l, bd_coordenadas)
 			#proceso
 			#guardar
 			#limpiar variable
 			#volver a empezar
-	
-
-
+def generar_lista_respecto_a_xy():
+	pass
 
 def crear_labels(coord):
 	'''Asocia las coordenadas axiales con el numero de la celda, de ese modo crea en el orden una lista de coordenadas'''
@@ -111,16 +102,7 @@ def crear_coordenadas_grilla_horizontal(coord, coef, nivel):
 	
 	for i in range(2*nivel):
 		coordenadas.append(coord[i])
-	'''	
-	for i in range(nivel):
-		coordenadas_pares.append(coord[i])
-	
-	for i in range(nivel,2*nivel):
-		coordenadas_impares.append(coord[i])
-	print("coordenadas pares ",coordenadas_pares)
-	print("coordenadas impares ",coordenadas_impares)
-	print("coordenadas por nivel ",coordenadas )
-	'''
+
 	for c in coordenadas:
 		resultado=-1*2. * np.sin(np.radians(60)) * (coef*c[1] - coef*c[2]) /3.
 		vc_aux.append(resultado)
@@ -134,24 +116,14 @@ def crear_coordenadas_grilla_horizontal(coord, coef, nivel):
 			
 			
 def plotear_grid(coef,radio, coord, nivel):
-	'''Plotea graficas de celdas hexagonales'''
-	# Horizontal cartesian coords	 
-	##hcoord = [coef*c[0] for c in coord]
-	 
+	'''Plotea graficas de celdas hexagonales. Parametros: radio celda a celda, radio, coordenadas y el nivel. Nivel=n*n, n=celdas.'''
 	labels=crear_labels(coord) 
 	colors=crear_color(coord)
 	##print("labels: ",labels )
 	# Vertical cartersian coords
 	#calcula el centro de los hexagonos
 	hcoord, vcoord = crear_coordenadas_grilla_horizontal(coord, coef, nivel)
-	
-	####cordenada x pares arriba, impares abajo
-	##vcoord = [-1*2. * np.sin(np.radians(60)) * (coef*c[1] - coef*c[2]) /3. for c in coord]
-	
-	##print("coordenadas vcord", vcoord )
-	 
-	#el numero de colores debe ser igual a len(coord)
-	
+
 	fig, ax = plt.subplots(1)
 	ax.set_aspect('equal')
 	vertical_coef=1 
@@ -168,34 +140,39 @@ def plotear_grid(coef,radio, coord, nivel):
     	# Also add a text label
 		ax.text(x, y+0.2, l[0], ha='center', va='center', size=6)
 	# Also add scatter points in hexagon centres
+	
+	
+	
+	hcoord, vcoord = crear_coordenadas_grilla_horizontal(coord, coef, nivel)
+	for x, y, c, l in zip(hcoord, vcoord, colors, labels):
+		color = c[0].lower()  # matplotlib understands lower case words for colours
+		hex = RegularPolygon((x, y), numVertices=6, radius=1/2*vertical_coef*radio, #0.67
+                         orientation=np.radians(30), #con 60 grados funciona perfecto, pero las coordenadas cambian. Antes 30
+                         facecolor=color, alpha=0.2, edgecolor='k')
+                         #cambiar radius=2. / 3. , cuando se usa coord_0
+		ax.add_patch(hex)
+    	# Also add a text label
+		ax.text(x, y+0.2, l[0], ha='center', va='center', size=6)
+		
 	ax.scatter(hcoord, vcoord, c=[c[0].lower() for c in colors], alpha=0.5)
 	plt.grid(True)
 	plt.show()
- 
 
-if __name__ =="__main__":
-	print("main")
-	radio=100
-	nivel=2
-	bd_coordenadas=[] 
-	#calcular_radio_externo(radio)
+def hexagrid(radio, nivel):
+	bd_coordenadas=[]
 	rae=calcular_radio_externo(radio)
 	coef=rae
-	#plotear_grid(coef, radio)
 	generar_lista(nivel, rae, bd_coordenadas)
-	print(bd_coordenadas)
 	plotear_grid(coef, radio, bd_coordenadas, nivel)
-	
-	'''1- Actualmente el algoritmo genera grillas simetricas. La idea es crear grillas n*n-1, nE{impares}
-	
-	'''
-	'''2-La sectorización funciona para un nivel multiplo de 3. Funciona quiere decir que para los numeros
-	impares, quedan celdas sin usar, por lo que no es eficiente producir celdas que no se usan'''
-	
-	
+
+if __name__ =="__main__":
+	print("How to implement hexagrid in modular ways.")
+	radio=100/10 #en decamentros
+	nivel=2
+	hexagrid(radio,nivel)
 	
 else:
-	print("modulo importado")
+	print("Modulo hexagrid importado.")
  
  
   
