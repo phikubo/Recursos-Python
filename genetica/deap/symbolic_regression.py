@@ -16,7 +16,7 @@
 import operator
 import math
 import random
-
+import json
 import numpy
 
 from deap import algorithms
@@ -75,6 +75,7 @@ toolbox.decorate("mutate", gp.staticLimit(key=operator.attrgetter("height"), max
 
 
 def main():
+	#inicializa la semilla aleatorios. Arranca con un aleatorio diferente.
     random.seed()
 
     pop = toolbox.population(n=200)
@@ -87,10 +88,11 @@ def main():
     mstats.register("std", numpy.std)
     mstats.register("min", numpy.min)
     mstats.register("max", numpy.max)
-    pop, log = algorithms.eaSimple(pop, toolbox, cxpb=0.5, mutpb=0.1, ngen=100, stats=mstats,
+    pop, log = algorithms.eaSimple(pop, toolbox, cxpb=0.5, mutpb=0.1, ngen=50, stats=mstats,
                                    halloffame=hof, verbose=True)
     print(hof[0])
-    # print log
+    
+    
     return pop, log, hof
 
 
