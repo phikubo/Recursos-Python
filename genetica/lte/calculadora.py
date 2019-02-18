@@ -1,5 +1,7 @@
 import math
 import time
+
+#math.radians(angle) #sirve para pasar de angulos a radianes.
 def calc_rango(x):
 	'''calcula el numero de celdas segun los pares e impares (x) que se le alimentan. Resulta que en hexagrid 
 	para cada nivel solo se usan las primeras dos coordenadas: el primer par y el segundo impar. Pero el numero de
@@ -11,13 +13,16 @@ def calc_rango(x):
 	#y=0.14*x+6.49
 	return math.ceil(y)
 
+def azimut_lista(angulo_inicial):
+	az=[math.radians(angulo_inicial)+i*120 for i in range(3)]
+	return az
+	
 if __name__ == "__main__":
 	print("inicio")
 	x=[1.,4.,6.,8.,10.,12.,14.,16.,18.]
 	for i in x:
 		#print(i, type(i))
 		#time.sleep(5)
-		
 		print(i, " recta: ", calc_rango(i))
 else:
 	print("modulo ecuaciones importado")
