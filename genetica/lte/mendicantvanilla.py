@@ -8,13 +8,13 @@ import time
 
 
 if __name__ =="__main__":
-	print("How to implement hexagrid in modular ways.")
+	print("Mod. Cobertura")
 	radio=100/10 #en decamentros
 	nivel=2
 	hexagrid(radio,nivel)
 	
 else:
-	print("Modulo hexagrid importado.")
+	print("Modulo MendicantVanilla:cobertura importado.")
  
  
   
