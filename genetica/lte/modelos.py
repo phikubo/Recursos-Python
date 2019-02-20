@@ -1,7 +1,30 @@
 import math
 import time
 import numpy as np
+import random
 #math.radians(angle) #sirve para pasar de angulos a radianes.
+
+def mod_desvanecimiento(dim_n, dim_m, matriz):
+	#distribucion normal?
+	n=np.random.normal(0,4, (int(dim_n),int(dim_m)))
+	print(np.shape(n))
+	print("time,,,")
+	time.sleep(4)
+	l_2 = matriz + n
+	l2= 10**(l_2/10)
+	print(type(l2), np.shape(l2))
+	relvol= np.sqrt(l2)
+	b=relvol/(math.sqrt(3.1416/2))
+	#raylrnd
+	l3=np.zeros((int(dim_n),int(dim_m)))
+	print("dim b: ",np.shape(b))
+	for i in range(len(b)):
+		for j in range(len(b)):
+			print(b[i][j])
+			l3[i][j]=np.random.rayleigh(b[i][j], 1)
+	
+	return l2, l3
+	#return l1, l2
 
 def perdidas_espacio_libre(dist,freq):
 	l=32.44+20*np.log10(dist)+20*np.log10(freq)

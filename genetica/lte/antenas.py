@@ -33,17 +33,17 @@ def horn(tilt):
 	print("ok: ",np.shape(A_theta))
 
 	A_theta_dif = A_theta - np.max(A_theta)
-	print("A_theta: ", A_theta )
-	print("Diferencia: ", A_theta_dif )
+	#print("A_theta: ", A_theta )
+	#print("Diferencia: ", A_theta_dif )
 	#compara si A_theta y A_theta_dif, son iguales?
-	print(A_theta is A_theta_dif)
+	#print(A_theta is A_theta_dif)
 	
 	#Esto quiere decir que son diferentes.
 
 	T=((theta2*math.pi)/180)
 	print(np.shape(T))
 	#plt.grid(True)
-	plt.polar(T,A_theta_dif)
+	##plt.polar(T,A_theta_dif)
 	#plt.plot(theta2, A_theta_dif)
 	plt.show()
 	return 4, theta_mod, A_theta, A_theta_dif
