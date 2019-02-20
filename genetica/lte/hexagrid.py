@@ -166,7 +166,7 @@ def plotear_grid(coef,radio, coord, nivel, azi):
 		ax.scatter(hcoord, vcoord, c=[c[0].lower() for c in colors], alpha=0.5)
 		
 	#plots de circulo
-	cx,cy, angx,angy=hc.coordenadas_circulo(radio, azi)
+	cx,cy, angx,angy = hc.coordenadas_circulo(radio, azi)
 	plt.plot(cx,cy)
 	#calculo coordenadas de angulo de azimut
 	for x,y in zip(angx, angy):
