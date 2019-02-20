@@ -175,7 +175,7 @@ def plotear_grid(coef,radio, coord, nivel, azi):
 	plt.grid(True)
 	plt.show()
 
-def hexagrid(radio, nivel):
+def graficar(radio, nivel):
 	bd_coordenadas=[]
 	rae=calcular_radio_externo(radio)
 	coef=rae

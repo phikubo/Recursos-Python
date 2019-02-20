@@ -1,6 +1,6 @@
 import math
 import time
-
+import numpy as np
 #math.radians(angle) #sirve para pasar de angulos a radianes.
 def calc_rango(x):
 	'''calcula el numero de celdas segun los pares e impares (x) que se le alimentan. Resulta que en hexagrid 
@@ -16,6 +16,9 @@ def calc_rango(x):
 def azimut_lista(angulo_inicial):
 	az=[math.radians(angulo_inicial)+i*120 for i in range(3)]
 	return az
+
+def calcular_puntos():
+	pass
 	
 if __name__ == "__main__":
 	print("inicio")
