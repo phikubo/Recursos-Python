@@ -188,7 +188,7 @@ if __name__ =="__main__":
 	print("How to implement hexagrid in modular ways.")
 	radio=100/10 #en decamentros
 	nivel=1
-	hexagrid(radio,nivel)
+	graficar(radio,nivel)
 	
 else:
 	print("Modulo hexagrid importado.")

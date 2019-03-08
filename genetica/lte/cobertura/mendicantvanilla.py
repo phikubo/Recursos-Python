@@ -97,12 +97,13 @@ def cobertura():
 	#call hexagrid.graficar #con todos los datos
 	l2, l3 = modelos.mod_desvanecimiento(dim_n,dim_m, pot_sect)
 	xp = np.linspace( 0,100, 25)
-	plt.plot(pot_sect[0][0], 'b*')
+	#plt.plot(pot_sect[0][0], 'b*')
 	#plt.plot(xp, pot_sect[0])
 	#plt.plot(xp, pot_sect[1])
 	#plt.plot(xp, pot_sect[2])
 	plt.plot(pot_sect, '.')
 	plt.grid(True)
+	#plt.polar(pot_sect, '.')
 	plt.show()
 	#retorna l2, l3, pot_sect, radio_m, radio_km
 
