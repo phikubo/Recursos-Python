@@ -4,10 +4,7 @@ import numpy as np
 import math
 import random
 import time
-<<<<<<< HEAD
-=======
 import calculadora
->>>>>>> a99b57eeba9698a03f8aff91784258af78b2c055
 #http://magomar.github.io/deludobellico//programming/java/hexagonal-maps/2013/10/10/mapas-hexagonales-2.html
 #https://joseguerreroa.wordpress.com/2016/11/17/como-producir-rejillas-grid-hexagonales-mediante-pyqgis/
 #https://gamedevelopment.tutsplus.com/es/tutorials/introduction-to-axial-coordinates-for-hexagonal-tile-based-games--cms-28820
@@ -17,31 +14,19 @@ import calculadora
 
 '''La modificación consiste en que se puede escalar los hexagonos al radio que uno fije, en ese sentido
 la grilla de hexagono mantiene su forma.
-
-Por el momento el script solo permite 7 celdas, 
-
 En la próxima entrega se hara sectorización (por 3) y se permitirá varios niveles (vueltas respecto al origen) en la grilla.''' 
 
-<<<<<<< HEAD
-=======
 #NOTA PERSONAL: Si colocar time.sleep(time) ubicar un print() que indique su existencia.
->>>>>>> a99b57eeba9698a03f8aff91784258af78b2c055
 
 def calcular_radio_externo(radio):
+	n=5
 	#print(math.sin(30), math.radians(30), math.degrees(30))
 	lado=radio*2*math.sin(math.radians(30))
 	#print("lado", lado, radio)
-<<<<<<< HEAD
-	radio_externo=radio+lado/2
-=======
 	#radio_externo=radio+lado/2 #para una grilla horizontal
-	radio_externo=radio+lado/2+lado/2 +lado/2 +lado/2 #para una grilla vertical
->>>>>>> a99b57eeba9698a03f8aff91784258af78b2c055
+	radio_externo=radio+n*(radio/2)  #para una grilla vertical
 	return radio_externo
 	
-
- 
-
 def guardar_lista(lista,bd_coordenadas):
 	#print("coordenadas: ",lista, "y ",lista[0],",", lista[1])
 	#x+y+z=0 en coordenadas axiales, despejando z=-x-y entonces lo genero
@@ -53,7 +38,6 @@ def guardar_lista(lista,bd_coordenadas):
 	#print(bd_coordenadas)
 	return bd_coordenadas
 	 
- 
 def generar_lista(nivel,rae, bd_coordenadas):
 	#funcion que no se implementa por que es inutil
 	for j in range(nivel):
@@ -67,8 +51,6 @@ def generar_lista(nivel,rae, bd_coordenadas):
 			#limpiar variable
 			#volver a empezar
 	
-
-
 
 
 #coord = [[0,0,0],[0,1,-1],[-1,1,0],[-1,0,1],[0,-1,1],[1,-1,0],[1,0,-1]]
@@ -124,12 +106,8 @@ def crear_coordenadas_grilla_horizontal(coord, coef, nivel):
 	'''Calcula las coordenadas horizontales y verticales. En el caso de las coordenadas verticales se usa las primeras dos
 	elementos de la lista para expandir la grilla'''
 	#proceo 1 completado
-<<<<<<< HEAD
-	hcoord = [coef*c[0] for c in coord]
-=======
 	#hcoord = [coef*c[0] for c in coord] #para grilla horizontal
 	hcoord = [1/3*coef*c[0] for c in coord]
->>>>>>> a99b57eeba9698a03f8aff91784258af78b2c055
 	vcoord =[]
 	vc_aux=[]
 	coordenadas_pares=[]
@@ -140,11 +118,7 @@ def crear_coordenadas_grilla_horizontal(coord, coef, nivel):
 	
 	for i in range(2*nivel):
 		coordenadas.append(coord[i])
-<<<<<<< HEAD
-		
-=======
 	'''	
->>>>>>> a99b57eeba9698a03f8aff91784258af78b2c055
 	for i in range(nivel):
 		coordenadas_pares.append(coord[i])
 	
@@ -153,19 +127,11 @@ def crear_coordenadas_grilla_horizontal(coord, coef, nivel):
 	print("coordenadas pares ",coordenadas_pares)
 	print("coordenadas impares ",coordenadas_impares)
 	print("coordenadas por nivel ",coordenadas )
-<<<<<<< HEAD
-	
-	for c in coordenadas:
-		resultado=-1*2. * np.sin(np.radians(60)) * (coef*c[1] - coef*c[2]) /3.
-		vc_aux.append(resultado)
-	vcoord=2*vc_aux
-=======
 	'''
 	for c in coordenadas:
 		resultado=-1*2. * np.sin(np.radians(120)) * (coef*c[1] - coef*c[2]) /3.
 		vc_aux.append(resultado)
 	vcoord=calculadora.calc_rango(2*nivel)*vc_aux
->>>>>>> a99b57eeba9698a03f8aff91784258af78b2c055
 	vcoord=vcoord[0:n]
 	#print(len(vcoord),  n  )
 	#print("por dos", vcoord[0:n])
@@ -195,17 +161,6 @@ def plotear_grid(coef,radio, coord, nivel):
 	
 	fig, ax = plt.subplots(1)
 	ax.set_aspect('equal')
-<<<<<<< HEAD
-	
-	
-	print(len(hcoord), len(vcoord))
-	time.sleep(10)
-	
-	for x, y, c, l in zip(hcoord, vcoord, colors, labels):
-		color = c[0].lower()  # matplotlib understands lower case words for colours
-		hex = RegularPolygon((x, y), numVertices=6, radius=radio, #0.67
-                         orientation=np.radians(30), #con 60 grados funciona perfecto, pero las coordenadas cambian. Antes 30
-=======
 	vertical_coef=1.154
 	
 	print(len(hcoord), len(vcoord))
@@ -213,17 +168,12 @@ def plotear_grid(coef,radio, coord, nivel):
 	for x, y, c, l in zip(hcoord, vcoord, colors, labels):
 		color = c[0].lower()  # matplotlib understands lower case words for colours
 		hex = RegularPolygon((x, y), numVertices=6, radius=vertical_coef*radio, #0.67
-                         orientation=np.radians(60), #con 60 grados funciona perfecto, pero las coordenadas cambian. Antes 30
->>>>>>> a99b57eeba9698a03f8aff91784258af78b2c055
+                         orientation=np.radians(30), #con 60 grados funciona perfecto, pero las coordenadas cambian. Antes 30
                          facecolor=color, alpha=0.2, edgecolor='k')
                          #cambiar radius=2. / 3. , cuando se usa coord_0
 		ax.add_patch(hex)
     	# Also add a text label
-<<<<<<< HEAD
-		ax.text(x, y+0.2, l[0], ha='center', va='center', size=20)
-=======
 		ax.text(x, y+0.2, l[0], ha='center', va='center', size=6)
->>>>>>> a99b57eeba9698a03f8aff91784258af78b2c055
 	# Also add scatter points in hexagon centres
 	ax.scatter(hcoord, vcoord, c=[c[0].lower() for c in colors], alpha=0.5)
 	plt.grid(True)
@@ -232,13 +182,8 @@ def plotear_grid(coef,radio, coord, nivel):
 
 if __name__ =="__main__":
 	print("main")
-<<<<<<< HEAD
-	radio=5
-	nivel=5
-=======
 	radio=10
-	nivel=6
->>>>>>> a99b57eeba9698a03f8aff91784258af78b2c055
+	nivel=3
 	bd_coordenadas=[] 
 	#calcular_radio_externo(radio)
 	rae=calcular_radio_externo(radio)
@@ -247,16 +192,12 @@ if __name__ =="__main__":
 	generar_lista(nivel, rae, bd_coordenadas)
 	print(bd_coordenadas)
 	plotear_grid(coef, radio, bd_coordenadas, nivel)
-<<<<<<< HEAD
-	 
-=======
 	
 	'''1- Actualmente el algoritmo genera grillas simetricas. La idea es crear grillas n*n-1, nE{impares}
 	
 	'''
 	'''2-La sectorización funciona para un nivel multiplo de 3. Funciona quiere decir que para los numeros
 	impares, quedan celdas sin usar, por lo que no es eficiente producir celdas que no se usan'''
->>>>>>> a99b57eeba9698a03f8aff91784258af78b2c055
 	
 	
 	
