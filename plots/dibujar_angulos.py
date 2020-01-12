@@ -60,7 +60,7 @@ if __name__ == "__main__":
 	ax = fig.add_subplot(1,1,1)
 
 	ax.add_line(line_1)
-	ax.add_line(line_2)s
+	ax.add_line(line_2)
 
 	angle_plot = get_angle_plot(line_1, line_2, 1)
 	angle_text = get_angle_text(angle_plot) 

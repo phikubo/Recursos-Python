@@ -80,7 +80,9 @@ for x, y, c, l in zip(hcoord, vcoord, colors, labels):
 # Also add scatter points in hexagon centres
 ax.scatter(hcoord, vcoord, c=[c[0].lower() for c in colors], alpha=0.5)
 plt.grid(True)
+plt.savefig("grillahex.png")
 plt.show()
+
 
 
  

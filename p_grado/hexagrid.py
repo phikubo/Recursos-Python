@@ -162,6 +162,7 @@ def plotear_grid(coef,radio, coord, nivel):
 	fig, ax = plt.subplots(1)
 	ax.set_aspect('equal')
 	vertical_coef=1.154
+	vertical_coef=1
 	
 	print(len(hcoord), len(vcoord))
 	
@@ -177,6 +178,7 @@ def plotear_grid(coef,radio, coord, nivel):
 	# Also add scatter points in hexagon centres
 	ax.scatter(hcoord, vcoord, c=[c[0].lower() for c in colors], alpha=0.5)
 	plt.grid(True)
+	plt.savefig("hexagrid.png")
 	plt.show()
  
 
