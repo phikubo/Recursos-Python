@@ -1,6 +1,6 @@
 import numpy as np
 import time
-#RECIPE: https://www.pythonforthelab.com/blog/introduction-to-storing-data-in-files/
+#RECIPE: https://www.pythonforthelab.com/blog/introduction-to-storing-data-in-files/, https://stackabuse.com/saving-text-json-and-csv-to-a-file-in-python/
 #indexing: https://www.pythoninformer.com/python-libraries/numpy/index-and-slice/
 #optimal transport papers:
 #https://hal.archives-ouvertes.fr/hal-01717967/document
@@ -81,6 +81,21 @@ def guardar_with_2colums():
         for i in range(len(x)):
             archivo.write('{:4.1f} {:.4f}\n'.format(x[i], y[i]))
             #write('{:4.1f}\t{:.4f}\n'.format(x[i], y[i])) #con tab en lugar de espacio como separador
+
+
+def guardar_cvs():
+    #https://stackabuse.com/reading-and-writing-csv-files-in-python/
+    import csv
+    weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+    sales = ['10', '8', '19', '12', '25']
+    with open('sales.csv', 'w') as csv_file:
+        csv_writer = csv.writer(csv_file, delimiter=',')
+        csv_writer.writerow(weekdays)
+        csv_writer.writerow(sales)
+
+def guardar_json():
+    #el metodo se encuentra en la carpeta basics, json files.
+
 if __name__=="__main__":
 	#Prototipo:
     #guardar_data_simple(False,"txt")
@@ -88,7 +103,8 @@ if __name__=="__main__":
     #guardar_with_numpy()
     #guardar_with()
     #guardar_with_2colums()
-    cargar_datos()
+    #cargar_datos()
+    guardar_cvs()
 
 else:
     print("Importado")
