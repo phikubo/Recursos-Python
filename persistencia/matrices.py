@@ -66,10 +66,25 @@ def test_persistencia():
     print("[0]", var2[0])
     print("[:,0]",var2[:,0]) #consigue el primer array
 
-
+def loop_over_axis():
+    x1 = np.linspace(0, 10, 11)
+    x2 = np.linspace(11, 21, 11)
+    x3 = np.linspace(21, 31, 11)
+    x4 = np.linspace(31, 41, 11)
+    lista=[x1, x2, x3, x4]
+    
+    #inicializar data
+    data=x1
+    for i in range(len(lista)):
+        try:
+            data=np.column_stack((data,lista[i+1]))
+        except Exception as esx:
+            print(esx) #esta excepcion ocurre por el [i+1], cuando llega a 3+1=4; de 0 a 4, el 4 seria el 5
+    print(data)
 
 if __name__ == "__main__":
     # Prototipo:
-    test_persistencia()
+    #test_persistencia()
+    loop_over_axis()
 else:
     print("Modulo <escribir_nombre> importado")
